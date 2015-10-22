@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="design.css" />
+</head>
+<body>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                </button>
+                <a class="navbar-brand" href="#">iLLuMiNaTe</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">about</a></li>
+                    <li><a href="#">rules</a></li>
+                    <li><a href="#">source</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div id="container">
+
+        <div class="desc">
+                <h1>About</h1>
+                <p class="text-justify">
+                    Lights out is a game where you attempt to turn
+                    all tiles on the board off. <br />The following website 
+                    allows you to play the game, but also features <br />a 
+                    simple AI utilizing searchfunctions to solve
+                    the puzzles.At any <br />point, if you would like to
+                    see the solution to the current state of the<br /> puzzle,
+                    simple click the solve button.
+                </p>
+            </div>
+        </div>
+        <div class="game">
+            <script src="game.js"></script>
+        </div>
+        
+        <div class="buttons">
+            <button id="solve" type="button" class="btn btn-success" onclick="solve()">Solve</button>
+            <button id="reset" type="button" class="btn btn-danger" onclick="">Reset</button>
+        </div>
+
+        <div class="options">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary">Easy</button>
+                <button type="button" class="btn btn-primary">Medium</button>
+                <button type="button" class="btn btn-primary">Hard</button>
+            </div>
+            <button type="button" class="btn btn-warning">New Game</button>
+        </div>
+</body>
+</html>
