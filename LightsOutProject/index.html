@@ -2,63 +2,80 @@
 <html>
 <head>
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="design.css" />
-</head>
-<body>
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="game.js"></script>
+</head>
+<body>
+    <div id="wrapper">
 
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                </button>
-                <a class="navbar-brand" href="#">iLLuMiNaTe</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">about</a></li>
-                    <li><a href="#">rules</a></li>
-                    <li><a href="#">source</a></li>
-                </ul>
-            </div>
+        <div id="header">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"></button>
+                        <a class="navbar-brand" href="#">iLLuMiNaTe</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">turn on the lights</a></li>
+                            <li><a href="#">est. 2015</a></li>
+                            <li><a href="#"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-    </nav>
-    
-    <div id="container">
 
-        <div class="desc">
-                <h1>About</h1>
+        <div id="content">
+
+            <div class="desc">
+                <h1>What is iLLuMiNaTe?</h1>
                 <p class="text-justify">
-                    Lights out is a game where you attempt to turn
-                    all tiles on the board off. <br />The following website 
-                    allows you to play the game, but also features <br />a 
-                    simple AI utilizing searchfunctions to solve
-                    the puzzles.At any <br />point, if you would like to
-                    see the solution to the current state of the<br /> puzzle,
-                    simple click the solve button.
+                    iLLuMiNaTe is a remake of the 1997 electronic game "Lights Out", where the player's goal was to turn off all the
+                    lit tiles on the game board. The only difference here, is instead of turning all the lights off, we now aim to
+                    turn them on! However unlike the the old game, there is a simple AI which can solve the board for the player
+                    if they cannot solve it themselves. If at any point you become stuck, simply click the solve button and
+                    the sequence of moves required to solve the puzzle will be presented to you. For more information on how
+                    the puzzles are solved, please naviagte to the 'about' section of the site.
                 </p>
             </div>
-        </div>
-        <div class="game">
-            <script src="game.js"></script>
-        </div>
-        
-        <div class="buttons">
-            <button id="solve" type="button" class="btn btn-success" onclick="solve()">Solve</button>
-            <button id="reset" type="button" class="btn btn-danger" onclick="">Reset</button>
+
+            <div class="game">
+                <canvas id="board"></canvas>
+            </div>
+
+            <div class="buttons">
+                <button id="solveBtn" type="button" class="btn btn-primary" onclick="solve()">Solve</button>
+                <button id="resetBtn" type="button" class="btn btn-default" onclick="reset()">Reset</button>
+                <button id="newGameBtn" type="button" class="btn btn-default" onclick="newGame()">New Game</button>
+            </div>
+
+            <div class="options">
+                <div class="btn-group">
+                    <button id="easyBtn" type="button" class="btn btn-primary" onclick="setDiff(1, 'easy')">Easy</button>
+                    <button id="mediumBtn" type="button" class="btn btn-primary" onclick="setDiff(2, 'medium')">Medium</button>
+                    <button id="hardBtn" type="button" class="btn btn-primary" onclick="setDiff(3, 'hard')">Hard</button>
+                </div>
+            </div>
+
+            <div class="alert alert-info" id="solvedAlert" style="display:none;">
+                <strong>Success!</strong> You solved the puzzle!
+            </div>
+            <p id="moves"></p>
         </div>
 
-        <div class="options">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary">Easy</button>
-                <button type="button" class="btn btn-primary">Medium</button>
-                <button type="button" class="btn btn-primary">Hard</button>
-            </div>
-            <button type="button" class="btn btn-warning">New Game</button>
+        <div id="footer">
+            <footer id="foot" class="container-fluid bg-4 text-center">
+                <p><br />Author: Kevin Misir <br /> Website <a href="http://www.github.com">: www.website.com</a> <br /> Github <a href="http://www.github.com">: www.github.com</a></p>
+            </footer>
         </div>
+
+    </div>
 </body>
 </html>

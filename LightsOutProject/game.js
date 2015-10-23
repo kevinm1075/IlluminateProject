@@ -1,20 +1,24 @@
 ﻿var canvas, ctx;
 var data;
+var initBoard;
 var board;
 var lit;
-
+var initLit;
+var numMoves;
+var difficulty;
+var numRows = 5;
+var numCols = 5;
 window.onload = function main() {
-    canvas = document.createElement("canvas")
-    canvas.width = canvas.height = 3 * 120 + 20;
-    canvas.id = "board";
+    //canvas = document.createElement("canvas");
+    //canvas.id = "board";
+    canvas = document.getElementById("board");
+    canvas.width = canvas.height = numRows * 120 + 20;
 
     ctx = canvas.getContext("2d");
 
-    document.body.appendChild(canvas);
+    //document.body.appendChild(canvas);
 
-    var moves = document.createElement("P");
-    moves.id = "moves"
-    document.body.appendChild(moves);
+    var moves = document.getElementById("moves");
 
     canvas.addEventListener("mousedown", mouseDown);
 
@@ -22,8 +26,7 @@ window.onload = function main() {
     tick();
 }
 
-function solve()
-{
+function solve() {
     var send2 = "{\'board\':\'" + JSON.stringify(board) + "\' }";
 
     $.ajax({
@@ -36,23 +39,50 @@ function solve()
             document.getElementById("moves").textContent = parse2DArray(result.d);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.status);
-        console.log(xhr.responseText);
-        console.log(thrownError);
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+            console.log(thrownError);
         }
     });
 }
 
-function parse2DArray(arr)
-{
+function reset() {
+    board = JSON.parse(JSON.stringify(initBoard))
+    lit = JSON.parse(JSON.stringify(initLit))
+    numMoves = 0;
+    $('#solvedAlert').hide();
+}
+
+function setDiff(diff, btn) {
+    $('#' + btn + 'Btn').addClass('active').siblings().removeClass('active');
+    difficulty = diff;
+}
+
+function newGame() {
+    if (difficulty == 1) {
+        initBoard = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
+        board = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
+        initLit = lit = 10;
+    }
+    else if (difficulty == 2) {
+        initBoard = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
+        board = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
+        initLit = lit = 4;
+    }
+    else {
+        initBoard = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
+        board = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
+        initLit = lit = 12;
+    }
+}
+
+function parse2DArray(arr) {
     var s = "Moves: \n";
     console.log(arr);
-    for(var i = 0; i < arr.length; i++)
-    {
+    for (var i = 0; i < arr.length; i++) {
         s = s + "[ "
 
-        for(var j = 0; j < arr[i].length; j++)
-        {
+        for (var j = 0; j < arr[i].length; j++) {
             var temp = arr[i][j].toString();
             s = s + temp + " ";
         }
@@ -65,18 +95,20 @@ function parse2DArray(arr)
 
 function init() {
     if (data == null) {
-        board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
-        lit = 0;
+        difficulty = 1;
+        $('#easyBtn').addClass('active')
+        newGame();
+
         data = [];
 
         var count = 0;
 
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < numRows; i++) {
             temp = [];
 
-            for (var j = 0; j < 3; j++) {
-                var x = (j % 3) * 120 + 20;
-                var y = Math.floor(count / 3) * 120 + 20;
+            for (var j = 0; j < numCols; j++) {
+                var x = (j % numCols) * 120 + 20;
+                var y = Math.floor(count / numCols) * 120 + 20;
                 temp.push(new Tile(x, y));
                 count++;
             }
@@ -94,8 +126,8 @@ function tick() {
 }
 
 function update() {
-    for (var i = 0; i < 3; i++) {
-        for (var j = 0; j < 3; j++) {
+    for (var i = 0; i < numRows; i++) {
+        for (var j = 0; j < numCols; j++) {
             (data[i][j]).set(board[i][j]);
         }
     }
@@ -113,15 +145,25 @@ function render() {
     }
 }
 
-function mouseDown(evt) {
-    var el = evt.target;
+function mouseDown(event) {
+    var totalOffsetX = 0;
+    var totalOffsetY = 0;
+    var canvasX = 0;
+    var canvasY = 0;
+    var currentElement = this;
 
-    var px = evt.clientX - el.offsetLeft;
-    var py = evt.clientY - el.offsetTop;
+    do {
+        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+    }
+    while (currentElement = currentElement.offsetParent)
 
-    if (px % 120 >= 20 && py % 120 >= 20) {
-        var y = Math.floor(px / 120);
-        var x = Math.floor(py / 120);
+    canvasX = event.pageX - totalOffsetX;
+    canvasY = event.pageY - totalOffsetY;
+
+    if (canvasX % 120 >= 20 && canvasY % 120 >= 20) {
+        var y = Math.floor(canvasX / 120);
+        var x = Math.floor(canvasY / 120);
 
         action(x, y);
         checkState();
@@ -130,7 +172,8 @@ function mouseDown(evt) {
 
 function checkState() {
     if (lit == board.length * board.length) {
-        alert("YOU WIN!");
+        $('#solvedAlert').show();
+        //alert("YOU WIN!");
     }
 }
 
@@ -162,6 +205,7 @@ function action(x, y) {
 function flipValue(x, y) {
     board[x][y] = 1 - board[x][y];
     board[x][y] == 1 ? lit++ : lit--;
+    numMoves++;
 }
 
 function Tile(x, y) {
@@ -174,7 +218,7 @@ function Tile(x, y) {
         _c.width = _c.height = 100;
         var _ctx = _c.getContext("2d");
 
-        _ctx.fillStyle = "#962727";
+        _ctx.fillStyle = "#FFF";
 
         // On
         _ctx.fillRect(0, 0, 100, 100);
@@ -200,10 +244,6 @@ function Tile(x, y) {
         else {
             tile = Tile.OFF;
         }
-    }
-
-    this.over = function () {
-        ctx.rotate(20 * Math.PI / 180);
     }
 
     this.getAlpha = function () {
