@@ -22,10 +22,21 @@ namespace LightsOutProject
         public object[] BoardHandle(string board)
         {
             int[,] test = JsonConvert.DeserializeObject<int[,]>(board);
-            
+
             Board b = new Board(test);
-            BoardNode root = new BoardNode(b, -1, -1, null);
-            BoardNode solution = Search.AStar(root);
+            ArrayList clicked = new ArrayList();
+            BoardNode root = new BoardNode(b, -1, -1, null, clicked);
+
+            BoardNode solution;
+
+            try
+            {
+                solution = Search.AStar(root);
+            }
+            catch(OutOfMemoryException ex)
+            {
+                solution = null;
+            }
 
             ArrayList actionList = Search.buildActionList(solution);
             return actionList.ToArray();  

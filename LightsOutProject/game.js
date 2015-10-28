@@ -5,18 +5,13 @@ var board;
 var lit;
 var initLit;
 var numMoves;
-var difficulty;
-var numRows = 5;
-var numCols = 5;
+var numRows = 4;
+var numCols = 4;
+
 window.onload = function main() {
-    //canvas = document.createElement("canvas");
-    //canvas.id = "board";
     canvas = document.getElementById("board");
     canvas.width = canvas.height = numRows * 120 + 20;
-
     ctx = canvas.getContext("2d");
-
-    //document.body.appendChild(canvas);
 
     var moves = document.getElementById("moves");
 
@@ -28,6 +23,7 @@ window.onload = function main() {
 
 function solve() {
     var send2 = "{\'board\':\'" + JSON.stringify(board) + "\' }";
+    document.getElementById("moves").textContent = "Solving....(this may take a while on difficult boards!)";
 
     $.ajax({
         url: 'BoardHandler.asmx/BoardHandle',
@@ -59,35 +55,30 @@ function setDiff(diff, btn) {
 }
 
 function newGame() {
-    if (difficulty == 1) {
-        initBoard = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
-        board = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
-        initLit = lit = 10;
-    }
-    else if (difficulty == 2) {
-        initBoard = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
-        board = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
-        initLit = lit = 4;
-    }
-    else {
-        initBoard = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
-        board = [[1, 0, 0, 1, 0], [1, 1, 1, 0, 0], [0, 1, 0, 1, 0], [0, 1, 1, 1, 0], [0, 1, 1, 1, 0]];
-        initLit = lit = 12;
-    }
+    numMoves = 0;
+
+    initBoard = [[1, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 1]];
+    board = [[1, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 1]];
+    initLit = lit = 4;
 }
 
 function parse2DArray(arr) {
-    var s = "Moves: \n";
-    console.log(arr);
-    for (var i = 0; i < arr.length; i++) {
-        s = s + "[ "
+    if (arr == -1) {
+        var s = "Unsolvable!";
+    }
+    else {
+        var s = "Moves: \n";
+        console.log(arr);
+        for (var i = 0; i < arr.length; i++) {
+            s = s + "[ "
 
-        for (var j = 0; j < arr[i].length; j++) {
-            var temp = arr[i][j].toString();
-            s = s + temp + " ";
+            for (var j = 0; j < arr[i].length; j++) {
+                var temp = arr[i][j].toString();
+                s = s + temp + " ";
+            }
+
+            s = s + "],";
         }
-
-        s = s + "],";
     }
 
     return s;
@@ -131,6 +122,8 @@ function update() {
             (data[i][j]).set(board[i][j]);
         }
     }
+
+    document.getElementById("numMoves").textContent = numMoves.toString();
 }
 
 function render() {
@@ -173,7 +166,6 @@ function mouseDown(event) {
 function checkState() {
     if (lit == board.length * board.length) {
         $('#solvedAlert').show();
-        //alert("YOU WIN!");
     }
 }
 
@@ -183,6 +175,7 @@ function action(x, y) {
     var left = y - 1;
     var right = y + 1;
 
+    numMoves++;
     flipValue(x, y);
 
     if (left > -1) {
@@ -205,7 +198,6 @@ function action(x, y) {
 function flipValue(x, y) {
     board[x][y] = 1 - board[x][y];
     board[x][y] == 1 ? lit++ : lit--;
-    numMoves++;
 }
 
 function Tile(x, y) {

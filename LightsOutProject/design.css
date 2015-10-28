@@ -50,8 +50,8 @@
     left: 6%;
     top: 50px;
 
-    width:620px;
-    height:620px;
+    width:500px;
+    height:500px;
     background-color: #353535;
     border-style: outset;
     border-width: 3px;
@@ -85,15 +85,19 @@
     height: 50px;
 }
 
-.options 
-{
-    float: left;
-    position:relative;
-
-}
-
 #moves
 {
+    float:left;
+    position:absolute;
+    color: #FFF;
+    font: 19px "Montserrat", sans-serif;
+}
+
+
+#numMoves
+{
+    float:right;
+    position:absolute;
     color: #FFF;
     font: 19px "Montserrat", sans-serif;
 }

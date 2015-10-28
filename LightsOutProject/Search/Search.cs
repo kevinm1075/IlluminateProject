@@ -93,6 +93,11 @@ namespace LightsOut
             {
                 current = openList.GetFirst();
 
+                if(current.clicked.Capacity >= 100000)
+                {
+                    return null;
+                }
+
                 if(current.getBoard().solved())
                 {
                     return current;
@@ -143,7 +148,7 @@ namespace LightsOut
             BoardNode current = answer;
             int[] curAction;
             ArrayList actionList = new ArrayList();
-
+            
             if (answer != null)
             {
                 // Follows path up to the root, storing actions as it goes.
@@ -153,6 +158,10 @@ namespace LightsOut
                     actionList.Add(curAction);
                     current = current.getPrev();
                 }
+            }
+            else
+            { 
+                actionList.Add(-1); //Unsolvable
             }
 
             return actionList;
@@ -196,15 +205,20 @@ namespace LightsOut
             int currentCost = current.getGScore();
             int numRows = child.board.GetLength(0);
             int numCols = child.board.GetLength(1);
+            int[] action;
 
             for (int curRow = 0; curRow < numRows; curRow++)
             {
                 for (int curCol = 0; curCol < numCols; curCol++)
                 {
-                    child = currentBoard.copyBoard();
-                    child.action(curRow, curCol);
+                    action = new int[2] { curRow, curCol };
+                    if(!current.clicked.Contains(action))
+                    {
+                        child = currentBoard.copyBoard();
+                        child.action(curRow, curCol);
+                        current.addChild(new BoardNode(child, curRow, curCol, current, current.clicked));
+                    }
 
-                    current.addChild(new BoardNode(child, curRow, curCol, current));
                 }
             }
         }

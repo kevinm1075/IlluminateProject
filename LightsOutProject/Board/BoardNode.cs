@@ -17,6 +17,7 @@ namespace LightsOut
         private int gScore; // g(n)
         private int fScore; // f(n)
         private BoardNode prev;
+        public ArrayList clicked;
         private ArrayList children;
 
         #endregion
@@ -33,12 +34,14 @@ namespace LightsOut
         /// <param name="x">X position of move</param>
         /// <param name="y">Y position of move</param>
         /// <param name="prev">Parent of node</param>
-        public BoardNode(Board board, int x, int y, BoardNode prev)
+        public BoardNode(Board board, int x, int y, BoardNode prev, ArrayList clicked)
         {
             this.board = board;
             this.x = x;
             this.y = y;
             this.prev = prev;
+            this.clicked = new ArrayList(clicked);
+            this.clicked.Add(getAction());
             children = new ArrayList();
         }
 

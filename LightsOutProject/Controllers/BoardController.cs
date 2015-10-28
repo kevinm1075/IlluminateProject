@@ -16,7 +16,8 @@ namespace LightsOutProject.Controllers
         {
 
             Board b = new Board(table);
-            BoardNode root = new BoardNode(b, -1, -1, null);
+            ArrayList clicked = new ArrayList();
+            BoardNode root = new BoardNode(b, -1, -1, null, clicked);
             BoardNode solution = Search.AStar(root);
 
             ArrayList actionList = Search.buildActionList(solution);

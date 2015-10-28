@@ -33,11 +33,11 @@ namespace LightsOut
 
                 if (String.Equals(input, "b")) // Solve board with Breadth
                 {
-                    solve(board, "b");
+                    //solve(board, "b");
                 }
                 else if (String.Equals(input, "a")) // Solve Board with A*
                 {
-                    solve(board, "a");
+                    //solve(board, "a");
                 }
                 else // Play the game
                 {
@@ -56,7 +56,7 @@ namespace LightsOut
             Console.Read();
         }
 
-        // Calls the specified search methods, and displays the action list
+        /* Calls the specified search methods, and displays the action list
         public static void solve(Board board, string search)
         {
             BoardNode root = new BoardNode(board, -1, -1, null);
@@ -92,5 +92,6 @@ namespace LightsOut
             
             Console.ReadLine();
         }
+        */
     }
 }
