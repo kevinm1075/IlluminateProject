@@ -8,6 +8,6 @@ Website: http://illuminateai.azurewebsites.net/index.html
 The main focus of this project is to develop an AI capable of solving the puzzle in the fewest amount of steps. If the player ever needs help, they just simply need to click the "Solve" button and the AI will solve the board from its current state. 
 
 To Do:
-Format CSS styling so that lower resolutions doesn't look garbled.
-Create and add many more puzzles.
-Implement a cleaner way of displaying moves to solve, and current amount of clicks.
+Format CSS styling so that lower resolutions doesn't look garbled.  
+Create and add many more puzzles.  
+Implement a cleaner way of displaying moves to solve, and current amount of clicks.  
