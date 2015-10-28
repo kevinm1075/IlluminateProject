@@ -11,14 +11,14 @@ namespace LightsOut
     {
         #region Data Members
 
-        private Board board;
-        private int x; // X position of move
-        private int y; // Y position of move
-        private int gScore; // g(n)
-        private int fScore; // f(n)
-        private BoardNode prev;
-        public ArrayList clicked;
-        private ArrayList children;
+        public Board board { get; set; }
+        public int x { get; set; } // X position of move
+        public int y { get; set; } // Y position of move
+        public int gScore { get; set; } // g(n)
+        public int fScore { get; set; } // f(n)
+        public BoardNode prev { get; set; }
+        public ArrayList clicked { get; set; }
+        public ArrayList children { get; set; }
 
         #endregion
 
@@ -70,90 +70,6 @@ namespace LightsOut
             return action;
         }
 
-        #endregion
-
-        #region Accessors
-
-        /// <summary>
-        /// getBoard
-        /// </summary>
-        /// <returns>Returns the Board object of the node</returns>
-        public Board getBoard()
-        {
-            return board;
-        }
-
-        /// <summary>
-        /// getX
-        /// </summary>
-        /// <returns>Returns the X coordinate of action</returns>
-        public int getX()
-        {
-            return x;
-        }
-
-        /// <summary>
-        /// getY
-        /// </summary>
-        /// <returns>Returns the Y coordinate of action</returns>
-        public int getY()
-        {
-            return y;
-        }
-
-        /// <summary>
-        /// getGScore
-        /// </summary>
-        /// <returns>Returns the g(n) value of node</returns>
-        public int getGScore()
-        {
-            return gScore;
-        }
-
-        /// <summary>
-        /// getFScore
-        /// </summary>
-        /// <returns>Returns the f(n) value of node</returns>
-        public int getFScore()
-        {
-            return fScore;
-        }
-
-        /// <summary>
-        /// getPrev
-        /// </summary>
-        /// <returns>Returns the parent of node</returns>
-        public BoardNode getPrev()
-        {
-            return prev;
-        }
-
-        /// <summary>
-        /// getChildren
-        /// </summary>
-        /// <returns>Returns all the children of the current node</returns>
-        public ArrayList getChildren()
-        {
-            return children;
-        }
-
-        /// <summary>
-        /// setGScore
-        /// </summary>
-        /// <param name="score">g(n) value of node</param>
-        public void setGScore(int score)
-        {
-            gScore = score;
-        }
-
-        /// <summary>
-        /// setFScore
-        /// </summary>
-        /// <param name="score">f(n) value of node</param>
-        public void setFScore(int score)
-        {
-            fScore = score;
-        }
         #endregion
     }
 }
