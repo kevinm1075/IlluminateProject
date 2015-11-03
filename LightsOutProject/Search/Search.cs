@@ -174,7 +174,8 @@ namespace LightsOut
                 for (int curCol = 0; curCol < numCols; curCol++)
                 {
                     action = new int[2] { curRow, curCol };
-                    if(!current.clicked.Contains(action))
+
+                    if(!current.clicked.Contains(action))  // Checks if we have made this move previosly on this branch
                     {
                         child = currentBoard.copyBoard();
                         child.action(curRow, curCol);
