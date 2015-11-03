@@ -11,24 +11,43 @@ namespace LightsOut
         public int[,] board { get; set; }
         public int numLit { get; set; }
 
-        public Board(int[,] board, int numLit)
-        {
-            this.board = board;
-            this.numLit = numLit;
-        }
-
+        /// <summary>
+        /// Creates an empty board object given dimensions of board.
+        /// </summary>
+        /// <param name="rows"></param>
+        /// <param name="cols"></param>
         public Board(int rows, int cols)
         {
             board = new int[rows, cols];
             numLit = 0;
         }
 
+        /// <summary>
+        /// Creates a board object when given a 2D array of intgers, and how many lit tiles.
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="numLit"></param>
+        public Board(int[,] board, int numLit)
+        {
+            this.board = board;
+            this.numLit = numLit;
+        }
+
+        /// <summary>
+        /// Creates a board object when only given a 2D array
+        /// </summary>
+        /// <param name="board"></param>
         public Board(int[,] board)
         {
             this.board = board;
             this.numLit = findNumLit();
         }
 
+        /// <summary>
+        /// Performs an action on the board at the given coordinates. 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void action(int x, int y)
         {
             // Get positions of neighbors
@@ -62,6 +81,11 @@ namespace LightsOut
             }
         }
 
+        /// <summary>
+        /// Determines the amount of lit tiles on the board. Useful for when
+        /// pre-made boards without light data is sent. 
+        /// </summary>
+        /// <returns></returns>
         public int findNumLit()
         {
             int lit = 0;
@@ -80,6 +104,11 @@ namespace LightsOut
             return lit;
         }
 
+        /// <summary>
+        /// Flips the value of the board at given coordiates
+        /// </summary>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
         public void flipValue(int x, int y)
         {
             if (board[x, y] == 1)
@@ -94,6 +123,10 @@ namespace LightsOut
             }
         }
 
+        /// <summary>
+        /// Checks if the puzzle has been solved
+        /// </summary>
+        /// <returns></returns>
         public bool solved()
         {
             if (numRemainingLights() == 0)
@@ -104,6 +137,11 @@ namespace LightsOut
             return false;
         }
 
+        /// <summary>
+        /// Compares two boards to see if they are equal.
+        /// </summary>
+        /// <param name="compareTo">Board to be comapred to</param>
+        /// <returns></returns>
         public bool compare(Board compareTo)
         {
             int current;
@@ -125,12 +163,20 @@ namespace LightsOut
             return true;
         }
 
+        /// <summary>
+        /// Checks how many tiles are still unlit
+        /// </summary>
+        /// <returns>Number of unlit tiles</returns>
         public int numRemainingLights()
         {
             int numTiles = board.GetLength(0) * board.GetLength(1);
             return numTiles - numLit;
         }
 
+        /// <summary>
+        /// Creates a copy of the this board.
+        /// </summary>
+        /// <returns>Copy Board Object</returns>
         public Board copyBoard()
         {
             int[,] newBoard = (int[,])board.Clone();
@@ -139,11 +185,21 @@ namespace LightsOut
             return copy;
         }
 
+        /// <summary>
+        /// Gets the tile state at given coordinates
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public int getValueAt(int x, int y)
         {
             return board[x, y];
         }
 
+        /// <summary>
+        /// Creates a string representation of te board.
+        /// </summary>
+        /// <returns></returns>
         public string toString()
         {
             string result = "";
@@ -163,9 +219,22 @@ namespace LightsOut
             return result;
         }
 
-        public void setPosition(int x, int y, int value)
+        /// <summary>
+        /// Set the state of a single tile on the board.
+        /// </summary>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
+        /// <param name="value">True = ON, False = OFF</param>
+        public void setPosition(int x, int y, bool state)
         {
-            board[x, y] = value;
+            if(state)
+            {
+                board[x, y] = 1;
+            }
+            else
+            {
+                board[x, y] = 0;
+            }
         }
     }
 }

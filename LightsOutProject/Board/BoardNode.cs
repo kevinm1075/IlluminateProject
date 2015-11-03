@@ -17,7 +17,7 @@ namespace LightsOut
         public int gScore { get; set; } // g(n)
         public int fScore { get; set; } // f(n)
         public BoardNode prev { get; set; }
-        public ArrayList clicked { get; set; }
+        public ArrayList clicked { get; set; } // Tracks tiles which have been clicked already
         public ArrayList children { get; set; }
 
         #endregion

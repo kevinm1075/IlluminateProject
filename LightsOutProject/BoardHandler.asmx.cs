@@ -21,11 +21,11 @@ namespace LightsOutProject
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public object[] BoardHandle(string board)
         {
-            int[,] test = JsonConvert.DeserializeObject<int[,]>(board);
+            int[,] webBoard = JsonConvert.DeserializeObject<int[,]>(board);
 
-            Board b = new Board(test);
-            ArrayList clicked = new ArrayList();
-            BoardNode root = new BoardNode(b, -1, -1, null, clicked);
+            Board boardObj = new Board(webBoard);
+            ArrayList clickedObj = new ArrayList();
+            BoardNode root = new BoardNode(boardObj, -1, -1, null, clickedObj);
 
             BoardNode solution;
 
