@@ -12,8 +12,8 @@ namespace LightsOut
         #region Data Members
 
         public Board board { get; set; }
-        public int x { get; set; } // X position of move
-        public int y { get; set; } // Y position of move
+        public int x { get; set; } // X position of action
+        public int y { get; set; } // Y position of action
         public int gScore { get; set; } // g(n)
         public int fScore { get; set; } // f(n)
         public BoardNode prev { get; set; }
