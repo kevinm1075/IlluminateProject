@@ -1,4 +1,5 @@
-﻿body {
+﻿body 
+{
     background-color: rgba(51, 122, 183, 0.65) !important;
     background-size: cover;
 }
@@ -7,6 +8,7 @@
 {
     padding-top: 15px;
     padding-bottom: 15px;
+    min-width: 1500px;
     font-size: 12px;
     font: 12px "Montserrat", sans-serif;
     letter-spacing: 3px;
@@ -25,11 +27,10 @@
     padding-right: 15px;
     padding-top: 3px;
 
-    float: left;
-    position:relative;
+    position:absolute;
 
     left:60px;
-    top:100px;
+    top:200px;
     color: #FFF;
     font: 19px "Montserrat", sans-serif;
     background-color: #353535;
@@ -37,18 +38,15 @@
     line-height: 1.5;
 }
 
-.content
+.wrapper
 {
-    position:relative;
-    top: 0;
 }
 
 .game 
 {
-    float:left;
-    position:relative;
-    left: 6%;
-    top: 50px;
+    position:absolute;
+    left: 735px;
+    top: 150px;
 
     width:500px;
     height:500px;
@@ -62,9 +60,9 @@
     width: 150px;
     height: 250px;
 
-    float: left;
-    position:relative;
-    left: 7%;
+    position:absolute;
+    left: 1300px;
+    top: 315px;
 }
 
 #resetBtn
@@ -87,29 +85,39 @@
 
 #moves
 {
-    float:left;
     position:absolute;
+    left: 785px;
+    top: 700px;
     color: #FFF;
     font: 19px "Montserrat", sans-serif;
 }
-
 
 #numMoves
 {
-    float:right;
     position:absolute;
+    left: 1355px;
+    top: 175px;
+
     color: #FFF;
-    font: 19px "Montserrat", sans-serif;
+    font: 60px "Montserrat", sans-serif;
 }
-#foot
+
+
+.footer
 {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width:100%;
+    min-width: 1500px;
     height: 150px;
-
+}
+#foot
+{
     color: #FFF;
     font: 16.5px "Montserrat", sans-serif;
     background-color: #2f2f2f;
     line-height: 1.5;
 }
+
+
+
