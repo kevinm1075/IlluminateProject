@@ -49,11 +49,6 @@ function reset() {
     $('#solvedAlert').hide();
 }
 
-function setDiff(diff, btn) {
-    $('#' + btn + 'Btn').addClass('active').siblings().removeClass('active');
-    difficulty = diff;
-}
-
 function newGame() {
     numMoves = 0;
 
