@@ -9,6 +9,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="puzzles.js"></script>
     <script src="game.js"></script>
 </head>
 <body>
@@ -55,18 +56,14 @@
                 <button id="newGameBtn" type="button" class="btn btn-default" onclick="newGame()">New Game</button>
             </div>
 
-            <div class="alert alert-info" id="solvedAlert" style="display:none;">
-                <strong>Success!</strong> You solved the puzzle!
-            </div>
             <p id="moves"></p>
             <p id="numMoves"></p>
-        </div>
-    </div>
-        <div class="footer">
+            <p id="solved">Solved!</p>
+
             <footer id="foot" class="container-fluid bg-4 text-center">
                 <p><br />Author: Kevin Misir <br /> Github: <a href="https://github.com/kevinm1075">https://github.com/kevinm1075 </a></p>
             </footer>
-
         </div>
+    </div>
 </body>
 </html>
