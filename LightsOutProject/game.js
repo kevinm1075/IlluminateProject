@@ -8,12 +8,10 @@ var canvasSize = 120;
 var tileOffset = 20;
 
 window.onload = function main() {
+    // Initilize canvas
     canvas = document.getElementById("board");
     canvas.width = canvas.height = numRows * canvasSize + tileOffset;
     ctx = canvas.getContext("2d");
-
-    var moves = document.getElementById("moves");
-
     canvas.addEventListener("mousedown", mouseDown);
 
     init();
@@ -21,6 +19,7 @@ window.onload = function main() {
 }
 
 function init() {
+    // Create board and tiles on initilize
     if (data == null) {
         newGame();
 
@@ -97,12 +96,14 @@ function mouseDown(event) {
     }
 }
 
+// checkState - determines if a puzzle has been solved
 function checkState() {
     if (lit == board.length * board.length) {
         $('#solved').show();
     }
 }
 
+// action - performs an game action at a given tile
 function action(x, y) {
     var above = x - 1;
     var bot = x + 1;
@@ -112,6 +113,7 @@ function action(x, y) {
     numMoves++;
     flipValue(x, y);
 
+    // Check boundaries
     if (left > -1) {
         flipValue(x, left);
     }
@@ -129,6 +131,7 @@ function action(x, y) {
     }
 }
 
+// flipValue - flips the current value of a tile
 function flipValue(x, y) {
     board[x][y] = 1 - board[x][y];
     board[x][y] == 1 ? lit++ : lit--;
@@ -181,6 +184,7 @@ function Tile(x, y) {
     }
 }
 
+// newGame - Creates a brand new game state. Obtains new puzzle.
 function newGame() {
     numMoves = 0;
     $('#solved').hide();
@@ -191,6 +195,7 @@ function newGame() {
     initLit = lit = getNumLit(board);
 }
 
+// reset - Resets board to orginial state
 function reset() {
     board = JSON.parse(JSON.stringify(initBoard));
     lit = JSON.parse(JSON.stringify(initLit));
@@ -199,6 +204,7 @@ function reset() {
     $('#solved').hide();
 }
 
+// solve - Attempts to solve the current board state
 function solve() {
     document.getElementById("moves").textContent = "Solving...";
     var sendBoard = "{\'board\':\'" + JSON.stringify(board) + "\' }";
@@ -220,6 +226,7 @@ function solve() {
     });
 }
 
+// parse2DArray - creates a string representation of a 2D array
 function parse2DArray(arr) {
     if (arr == -1) {
         var s = "Unsolvable!";
@@ -242,6 +249,7 @@ function parse2DArray(arr) {
     return s;
 }
 
+// getNumLit - obtains how many tiles are lit on the board
 function getNumLit(board) {
     var litCount = 0;
 

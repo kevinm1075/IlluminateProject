@@ -10,13 +10,18 @@ using Newtonsoft.Json;
 
 namespace LightsOutProject
 {
-    [WebService(Namespace = "http://testdomain.com/")]
+    [WebService(Namespace = "http://http://illuminateai.azurewebsites.net/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     [ScriptService]
     public class BoardHandler : System.Web.Services.WebService
     {
 
+        /// <summary>
+        /// BoardHandle - Attempts to obtain the solution for a given board
+        /// </summary>
+        /// <param name="board">JSON stringified board</param>
+        /// <returns></returns>
         [WebMethod()]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public object[] BoardHandle(string board)
