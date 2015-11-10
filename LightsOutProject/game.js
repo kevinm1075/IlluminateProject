@@ -1,16 +1,15 @@
 ﻿var canvas, ctx;
 var data;
-var initBoard;
-var board;
-var lit;
-var initLit;
+var initBoard, board;
+var lit, initLit;
 var numMoves;
-var numRows = 4;
-var numCols = 4;
+var numRows = numCols = 4;
+var canvasSize = 120;
+var tileOffset = 20;
 
 window.onload = function main() {
     canvas = document.getElementById("board");
-    canvas.width = canvas.height = numRows * 120 + 20;
+    canvas.width = canvas.height = numRows * canvasSize + tileOffset;
     ctx = canvas.getContext("2d");
 
     var moves = document.getElementById("moves");
@@ -21,68 +20,8 @@ window.onload = function main() {
     tick();
 }
 
-function solve() {
-    var send2 = "{\'board\':\'" + JSON.stringify(board) + "\' }";
-    document.getElementById("moves").textContent = "Solving....(this may take a while on difficult boards!)";
-
-    $.ajax({
-        url: 'BoardHandler.asmx/BoardHandle',
-        type: 'POST',
-        data: send2,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (result) {
-            document.getElementById("moves").textContent = parse2DArray(result.d);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status);
-            console.log(xhr.responseText);
-            console.log(thrownError);
-        }
-    });
-}
-
-function reset() {
-    board = JSON.parse(JSON.stringify(initBoard))
-    lit = JSON.parse(JSON.stringify(initLit))
-    numMoves = 0;
-    $('#solvedAlert').hide();
-}
-
-function newGame() {
-    numMoves = 0;
-
-    initBoard = [[1, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 1]];
-    board = [[1, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 1]];
-    initLit = lit = 4;
-}
-
-function parse2DArray(arr) {
-    if (arr == -1) {
-        var s = "Unsolvable!";
-    }
-    else {
-        var s = "Moves: \n";
-        console.log(arr);
-        for (var i = 0; i < arr.length; i++) {
-            s = s + "[ "
-
-            for (var j = 0; j < arr[i].length; j++) {
-                var temp = arr[i][j].toString();
-                s = s + temp + " ";
-            }
-
-            s = s + "],";
-        }
-    }
-
-    return s;
-}
-
 function init() {
     if (data == null) {
-        difficulty = 1;
-        $('#easyBtn').addClass('active')
         newGame();
 
         data = [];
@@ -93,8 +32,8 @@ function init() {
             temp = [];
 
             for (var j = 0; j < numCols; j++) {
-                var x = (j % numCols) * 120 + 20;
-                var y = Math.floor(count / numCols) * 120 + 20;
+                var x = (j % numCols) * canvasSize + tileOffset;
+                var y = Math.floor(count / numCols) * canvasSize + tileOffset;
                 temp.push(new Tile(x, y));
                 count++;
             }
@@ -124,8 +63,8 @@ function update() {
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (var i = data.length; i--;) {
-        for (var j = data.length; j--;) {
+    for (var i = 0; i< data.length; i++) {
+        for (var j = 0; j < data.length; j++) {
             ctx.globalAlpha = data[i][j].getAlpha();
             data[i][j].draw(ctx);
         }
@@ -149,9 +88,9 @@ function mouseDown(event) {
     canvasX = event.pageX - totalOffsetX;
     canvasY = event.pageY - totalOffsetY;
 
-    if (canvasX % 120 >= 20 && canvasY % 120 >= 20) {
-        var y = Math.floor(canvasX / 120);
-        var x = Math.floor(canvasY / 120);
+    if (canvasX % canvasSize >= tileOffset && canvasY % canvasSize >= tileOffset) {
+        var y = Math.floor(canvasX / canvasSize);
+        var x = Math.floor(canvasY / canvasSize);
 
         action(x, y);
         checkState();
@@ -160,7 +99,7 @@ function mouseDown(event) {
 
 function checkState() {
     if (lit == board.length * board.length) {
-        $('#solvedAlert').show();
+        $('#solved').show();
     }
 }
 
@@ -207,12 +146,12 @@ function Tile(x, y) {
 
         _ctx.fillStyle = "#FFF";
 
-        // On
+        // Tile On
         _ctx.fillRect(0, 0, 100, 100);
         Tile.ON = new Image();
         Tile.ON.src = _c.toDataURL();
 
-        // Off
+        // Tile Off
         _ctx.fillRect(0, 0, 100, 100);
         Tile.OFF = new Image();
         Tile.OFF.src = _c.toDataURL();
@@ -240,4 +179,82 @@ function Tile(x, y) {
     this.draw = function (ctx) {
         ctx.drawImage(tile, x, y);
     }
+}
+
+function newGame() {
+    numMoves = 0;
+    $('#solved').hide();
+    random = Math.floor((Math.random() * numPuzzles) + 0);
+
+    initBoard = JSON.parse(JSON.stringify(puzzles[random]));
+    board = JSON.parse(JSON.stringify(puzzles[random]));
+    initLit = lit = getNumLit(board);
+}
+
+function reset() {
+    board = JSON.parse(JSON.stringify(initBoard));
+    lit = JSON.parse(JSON.stringify(initLit));
+
+    numMoves = 0;
+    $('#solved').hide();
+}
+
+function solve() {
+    document.getElementById("moves").textContent = "Solving...";
+    var sendBoard = "{\'board\':\'" + JSON.stringify(board) + "\' }";
+
+    $.ajax({
+        url: 'BoardHandler.asmx/BoardHandle',
+        type: 'POST',
+        data: sendBoard,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+            document.getElementById("moves").textContent = parse2DArray(result.d);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status);
+            console.log(xhr.responseText);
+            console.log(thrownError);
+        }
+    });
+}
+
+function parse2DArray(arr) {
+    if (arr == -1) {
+        var s = "Unsolvable!";
+    }
+    else {
+        var s = "Moves: \n";
+
+        for (var i = 0; i < arr.length; i++) {
+            s = s + "[ "
+
+            for (var j = 0; j < arr[i].length; j++) {
+                var temp = arr[i][j].toString();
+                s = s + temp + " ";
+            }
+
+            s = s + "],";
+        }
+    }
+
+    return s;
+}
+
+function getNumLit(board) {
+    var litCount = 0;
+
+    for(var i = 0; i < board.length; i++)
+    {
+        for(var j = 0; j < board.length;j++)
+        {
+            if(board[i][j] == 1)
+            {
+                litCount++;
+            }
+        }           
+    }
+
+    return litCount;
 }

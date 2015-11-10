@@ -123,6 +123,7 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Images\Logo.png" />
+    <Content Include="puzzles.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
