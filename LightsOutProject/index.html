@@ -13,7 +13,8 @@
     <script src="game.js"></script>
 </head>
 <body>
-    <link rel="stylesheet" type="text/css" href="design.css" />
+    <div class="wrapper">
+        <link rel="stylesheet" type="text/css" href="design.css" />
         <div id="header">
             <nav class="navbar navbar-default">
                 <div class="container">
@@ -32,8 +33,7 @@
             </nav>
         </div>
 
-    <div class="content">
-        <div class="wrapper">
+        <div class="content">
             <div class="desc">
                 <h1>What is iLLuMiNaTe?</h1>
                 <p class="text-justify">
@@ -56,14 +56,23 @@
                 <button id="newGameBtn" type="button" class="btn btn-default" onclick="newGame()">New Game</button>
             </div>
 
-            <p id="moves"></p>
-            <p id="numMoves"></p>
-            <p id="solved">Solved!</p>
+            <div class="numMoves"><p id="numMoves"></p></div>
+            <div class="solved"><p id="solved">Solved!</p></div>
+            <div class="moves"><p id="moves"></p></div>
 
-            <footer id="foot" class="container-fluid bg-4 text-center">
-                <!--<p><br />Author: Kevin Misir <br /> Github: <a href="https://github.com/kevinm1075">https://github.com/kevinm1075 </a></p> -->
-            </footer>
+
+
+           </div>
+        <div class="push"></div>
         </div>
-    </div>
+
+        <div class="footer">
+            <div id="author">
+                <p>Author: Kevin Misir</p>
+            </div>
+            <div id="website">
+                Github: <a href="https://github.com/kevinm1075">https://github.com/kevinm1075 </a>
+            </div>
+        </div>
 </body>
 </html>

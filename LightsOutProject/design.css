@@ -1,6 +1,46 @@
-﻿body 
+﻿* {
+	margin: 0;
+}
+
+html {
+  position: relative;
+  height: 100%;
+}
+
+body 
 {
-    background-image: url("\Images/footer_lodyas.png")
+    background-image: url("\Images/footer_lodyas.png");
+    height: 100%;
+}
+
+.wrapper {
+	min-height: 100%;
+    
+	margin: 0 auto -125px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.footer, .push {
+	height: 125px; /* .push must be the same height as .footer */
+}
+
+.footer
+{
+    background: #FFF;
+    min-width: 1500px;
+    color: #353535;
+    font: 16.5px "Century Gothic", sans-serif;
+    background-color: #f5f5f5;
+    line-height: 1.5;
+}
+
+#author
+{
+    padding: 30px 0 0 900px;
+}
+
+#website
+{
+    padding: 0 0 0 820px;
 }
 
 .navbar 
@@ -26,10 +66,10 @@
     padding-right: 15px;
     padding-top: 3px;
 
-    position:absolute;
+    position:relative;
 
     left:60px;
-    top:200px;
+    top:170px;
     color: #2f2f2f;
     font: 19px "Century Gothic", sans-serif;
     background-color: #f8f8f8;
@@ -39,9 +79,9 @@
 
 .game 
 {
-    position:absolute;
+    position:relative;
     left: 725px;
-    top: 150px;
+    top: -285px;
 
     width:500px;
     height:500px;
@@ -55,9 +95,14 @@
     width: 150px;
     height: 250px;
 
-    position:absolute;
-    left: 1320px;
-    top: 315px;
+    position:relative;
+    left: 1280px;
+    top: -600px;
+}
+
+.content
+{
+    height:600px;
 }
 
 #resetBtn
@@ -78,67 +123,37 @@
     height: 50px;
 }
 
-#moves
+.numMoves
 {
-    position:absolute;
-    left: 785px;
-    top: 700px;
+    position:relative;
+    left: 1295px;
+    top: -1020px;
+
+    width:120px;
+    height:120px;
+    background-color:#FFF;
+    padding: 15px 60px 60px 37px;
+    color: #000;
+    font: 70px "Century Gothic", sans-serif;
+}
+
+.solved
+{
+    position:relative;
+    left: 1250px;
+    top: -750px;
+
+    color: #FFF;
+    font: 60px "Montserrat", sans-serif;
+}
+
+.moves
+{
+    position:relative;
+    width:900px;
+    left: 750px;
+    top: -640px;
     color: #FFF;
     font: 19px "Montserrat", sans-serif;
 }
-
-#numMoves
-{
-    position:absolute;
-    left: 1375px;
-    top: 175px;
-
-    color: #FFF;
-    font: 60px "Montserrat", sans-serif;
-}
-
-#xAxis
-{
-    position:absolute;
-    left: 710px;
-    top: 195px;
-
-    color: #FFF;
-    font: 50px "Montserrat", sans-serif;
-}
-
-#yAxis
-{
-    position:absolute;
-    left: 808px;
-    top: 90px;
-
-    color: #FFF;
-    font: 50px "Montserrat", sans-serif;
-}
-
-#solved
-{
-    position:absolute;
-    left: 1290px;
-    top: 240px;
-
-    color: #FFF;
-    font: 60px "Montserrat", sans-serif;
-}
-
-// FIX ME #foot
-{
-    position:absolute;
-    width:100%;
-    min-width: 1500px;
-    top:839px;
-    height:150px;
-    color: #FFF;
-    font: 16.5px "Montserrat", sans-serif;
-    background-color: #2f2f2f;
-    line-height: 1.5;
-}
-
-
 
