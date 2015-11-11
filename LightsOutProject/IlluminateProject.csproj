@@ -121,6 +121,7 @@
     <Content Include="design.css" />
     <Content Include="game.js" />
     <Content Include="Global.asax" />
+    <Content Include="Images\footer_lodyas.png" />
     <Content Include="index.html" />
     <Content Include="Images\Logo.png" />
     <Content Include="puzzles.js" />
@@ -133,13 +134,13 @@
       <DependentUpon>BoardHandler.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Board\Board.cs" />
-    <Compile Include="Board\BoardNode.cs" />
+    <Compile Include="Solver\Board.cs" />
+    <Compile Include="Solver\BoardNode.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\Search.cs" />
+    <Compile Include="Solver\Search.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
