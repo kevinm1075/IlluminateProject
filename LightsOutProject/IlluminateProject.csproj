@@ -145,6 +145,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Git.pubxml" />
     <None Include="Properties\PublishProfiles\illuminateai - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\illuminateai - Web Deploy.pubxml" />
